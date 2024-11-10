@@ -1,0 +1,11 @@
+server:
+  port: 8080
+  servlet:
+    context-path: /shoe-shop
+
+spring:
+  application:
+    name: shoe-shop
+  data:
+    mongodb:
+      uri: mongodb://root:190103@localhost:27017/shoe-shop?authSource=admin
