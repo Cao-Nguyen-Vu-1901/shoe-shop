@@ -22,8 +22,6 @@ public class Cart {
 
     private List<CartItem> cartItems; // Embedded list of cart items
 
-    // Getters and setters
-
     public static class CartItem {
         @DBRef
         private Product product; // Reference to Product
@@ -31,7 +29,38 @@ public class Cart {
         private int quantity;
         private double price;
 
-        // Getters and setters
+        public CartItem(Product product, int quantity, double price) {
+            this.product = product;
+            this.quantity = quantity;
+            this.price = price;
+        }
+
+        public CartItem() {
+        }
+
+        public Product getProduct() {
+            return product;
+        }
+
+        public void setProduct(Product product) {
+            this.product = product;
+        }
+
+        public int getQuantity() {
+            return quantity;
+        }
+
+        public void setQuantity(int quantity) {
+            this.quantity = quantity;
+        }
+
+        public double getPrice() {
+            return price;
+        }
+
+        public void setPrice(double price) {
+            this.price = price;
+        }
     }
 
 }
