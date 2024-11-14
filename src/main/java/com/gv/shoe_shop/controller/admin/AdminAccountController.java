@@ -32,13 +32,13 @@ public class AdminAccountController {
     }
 
     @PostMapping("/profile")
-    public String updateProfile(ChangePasswordRequest request, HttpSession session, RedirectAttributes redirectAttributes) throws IOException {
-        var user = userService.updatePassword(request, (UserResponse) session.getAttribute(StringConstant.USER), redirectAttributes);
+    public String updateProfile(UserUpdateProfileRequest request, HttpSession session, RedirectAttributes redirectAttributes) throws IOException {
+        var user = userService.updateProfile(request, (UserResponse) session.getAttribute(StringConstant.USER), redirectAttributes);
         if(!Objects.isNull(user)) {
             session.removeAttribute(StringConstant.USER);
             session.setAttribute(StringConstant.USER, user);
         }
-        return "redirect:/admin/change-password";
+        return "redirect:/admin/profile";
     }
 
     @GetMapping("/change-password")
