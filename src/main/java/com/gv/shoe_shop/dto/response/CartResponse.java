@@ -1,48 +1,48 @@
-package com.gv.shoe_shop.entity;
+package com.gv.shoe_shop.dto.response;
 
 import lombok.*;
-import org.springframework.data.mongodb.core.mapping.DBRef;
-import org.springframework.data.mongodb.core.mapping.Document;
-import org.springframework.data.mongodb.core.mapping.MongoId;
 
 import java.util.List;
 
-@Getter
-@Setter
+@Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Document(collection = "carts")
-public class Cart {
-    @MongoId
-    private String id;  
+public class CartResponse {
+    private String id;
 
-    @DBRef
-    private User user; 
+    private UserResponse user;
 
-    private List<CartItem> cartItems; 
+    private List<CartItemResponse> cartItems;
 
-    public static class CartItem {
-        @DBRef
-        private Product product; 
 
+    public double totalMoney(){
+        double sum = 0;
+        for (CartResponse.CartItemResponse cartItem : cartItems) {
+            sum += cartItem.getPrice() * cartItem.getQuantity();
+        }
+        return sum;
+    }
+
+    public static class CartItemResponse {
+        private ProductResponse product;
         private int quantity;
         private double price;
 
-        public CartItem(Product product, int quantity, double price) {
+        public CartItemResponse(ProductResponse product, int quantity, double price) {
             this.product = product;
             this.quantity = quantity;
             this.price = price;
         }
 
-        public CartItem() {
+        public CartItemResponse() {
         }
 
-        public Product getProduct() {
+        public ProductResponse getProduct() {
             return product;
         }
 
-        public void setProduct(Product product) {
+        public void setProduct(ProductResponse product) {
             this.product = product;
         }
 
@@ -61,7 +61,5 @@ public class Cart {
         public void setPrice(double price) {
             this.price = price;
         }
-
     }
-
 }

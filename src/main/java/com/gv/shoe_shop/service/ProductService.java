@@ -1,5 +1,3 @@
-package com.gv.shoe_shop.service;
-
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
