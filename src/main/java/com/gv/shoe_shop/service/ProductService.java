@@ -8,8 +8,10 @@ import java.nio.file.Paths;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -127,5 +129,15 @@ public class ProductService {
         }
     }
 
+    public List<Product> getTopProducts() {
+        return productRepository.findByDeletedDateIsNull(Sort.by(Sort.Order.desc("createdDate")))
+                .stream()
+                .limit(8) // Chỉ lấy 8 sản phẩm
+                .collect(Collectors.toList());
+    }
+
+    public List<Product> getProductsByCategoryId(String categoryId) {
+        return productRepository.findByProductCategoryId(categoryId);
+    }
 
 }
