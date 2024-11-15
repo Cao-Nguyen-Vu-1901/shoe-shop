@@ -16,11 +16,9 @@ import java.util.List;
 @Document(collection = "orders")
 public class Order {
     @MongoId
-    private String id;  // Corresponds to MAHOADON in SQL
-
+    private String id;  
     @DBRef
-    private User user; // Reference to Customer
-
+    private User user; 
     private LocalDate createdDate;
 
     private String status;
@@ -35,8 +33,26 @@ public class Order {
 
         private int quantity;
         private double price;
+        public Product getProduct() {
+            return product;
+        }
+        public int getQuantity() {
+            return quantity;
+        }
+        public double getPrice() {
+            return price;
+        }
+        public void setProduct(Product product) {
+            this.product = product;
+        }
+        public void setQuantity(int quantity) {
+            this.quantity = quantity;
+        }
+        public void setPrice(double price) {
+            this.price = price;
+        }
 
-        // Getters and setters
+        
     }
 
 }

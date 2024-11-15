@@ -15,16 +15,16 @@ import java.util.List;
 @Document(collection = "carts")
 public class Cart {
     @MongoId
-    private String id;  // Corresponds to MAGIOHANG in SQL
+    private String id;  
 
     @DBRef
-    private User user; // Reference to Customer
+    private User user; 
 
-    private List<CartItem> cartItems; // Embedded list of cart items
+    private List<CartItem> cartItems; 
 
     public static class CartItem {
         @DBRef
-        private Product product; // Reference to Product
+        private Product product; 
 
         private int quantity;
         private double price;
@@ -61,6 +61,7 @@ public class Cart {
         public void setPrice(double price) {
             this.price = price;
         }
+
     }
 
 }
