@@ -17,13 +17,17 @@ public class User {
     @MongoId
     private String id;
     private String name;
-    private LocalDate dob; // Date as a String in "YYYY-MM-DD" format
+    private LocalDate dob;
     private String gender;
+    private String phoneNumber;
     private String email;
     private String address;
     private String image;
     private String username;
     private String password;
     private String status;
-    private Set<String> role;
+    private Set<String> roles;
+    private LocalDate createdDate;
+    private LocalDate updatedDate;
+    private LocalDate deleteDate;
 }
