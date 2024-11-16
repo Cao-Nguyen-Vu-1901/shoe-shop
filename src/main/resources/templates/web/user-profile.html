@@ -10,7 +10,7 @@
   <div class="container">
     <div class="billing_details">
       <div class="col-lg-12">
-        <form class="row contact_form" th:action="@{/web/user-profile}" th:method="POST" novalidate="novalidate" enctype="multipart/form-data">
+        <form class="row contact_form" th:action="@{/web/profile}" th:method="POST" novalidate="novalidate" enctype="multipart/form-data">
           <div class="col-md-12 form-group text-center">
             <img id="authorImage" class="author_img rounded-circle" style="width: 38vh; height: 38vh; object-fit: cover" th:src="@{'/assets/web/img/avatar/' + ${session.USER.image}}" alt="">
           </div>

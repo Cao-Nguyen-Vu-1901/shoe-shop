@@ -68,6 +68,23 @@
                                     <button type="submit" class="btn btn-primary">Lưu</button>
                                 </div>
                             </form>
+                            <script>
+                                const imageInput = document.getElementById('imageInput');
+                                const authorImage = document.getElementById('authorImage');
+
+                                imageInput.addEventListener('change', function(event) {
+                                    const file = event.target.files[0];
+
+                                    if (file && file.type.startsWith('image/')) {
+                                        const imageUrl = URL.createObjectURL(file);
+                                        authorImage.src = imageUrl;
+
+                                        authorImage.onload = () => URL.revokeObjectURL(imageUrl);
+                                    } else {
+                                        console.error("File không hợp lệ hoặc không phải là hình ảnh.");
+                                    }
+                                });
+                            </script>
                         </div>
                     </div>
                 </div>

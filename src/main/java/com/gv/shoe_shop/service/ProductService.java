@@ -1,3 +1,5 @@
+package com.gv.shoe_shop.service;
+
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -36,13 +38,13 @@ public class ProductService {
 
     public Product getProductById(String id){
         return productRepository.findById(id)
-            .orElseThrow(() -> new CustomRuntimeException("Product not found"));
+                .orElseThrow(() -> new CustomRuntimeException("Product not found"));
     }
 
     public Product createProduct(ProductRequest productRequest) throws IOException{
         try {
             Category category = categoryRepository.findById(productRequest.getCategoryid())
-            .orElseThrow(()-> new CustomRuntimeException("Category not found"));
+                    .orElseThrow(()-> new CustomRuntimeException("Category not found"));
             Product product = new Product();
             product.setId(productRequest.getId());
             product.setName(productRequest.getName());
@@ -68,10 +70,10 @@ public class ProductService {
 
     public Product updateProduct(String id, ProductRequest productRequest) throws IOException {
         Product product = productRepository.findById(id)
-            .orElseThrow(()-> new CustomRuntimeException("Product not found"));
+                .orElseThrow(()-> new CustomRuntimeException("Product not found"));
 
         Category category = categoryRepository.findById(productRequest.getCategoryid())
-            .orElseThrow(()-> new CustomRuntimeException("Category not found"));
+                .orElseThrow(()-> new CustomRuntimeException("Category not found"));
 
         if(product != null){
             product.setName(productRequest.getName());
@@ -86,17 +88,17 @@ public class ProductService {
                 String imageName = imageFile.getOriginalFilename();
                 String imageNameWithoutExt = imageName.substring(0, imageName.lastIndexOf('.'));
                 String extension = imageName.substring(imageName.lastIndexOf('.'));
-                
+
                 Path imagePath = Paths.get(IMAGE_UPLOAD_DIR, imageName);
                 int count = 1;
-                
+
                 // Kiểm tra nếu file tồn tại, thêm số vào tên file
                 while (Files.exists(imagePath)) {
                     imageName = imageNameWithoutExt + "_" + count + extension;
                     imagePath = Paths.get(IMAGE_UPLOAD_DIR, imageName);
                     count++;
                 }
-                
+
                 Files.write(imagePath, imageFile.getBytes());
                 product.setImage(imageName);  // Lưu tên file ảnh vào cơ sở dữ liệu
             }
@@ -119,7 +121,7 @@ public class ProductService {
 
     public void softDelete(String id){
         Product product = productRepository.findById(id)
-            .orElseThrow(()-> new CustomRuntimeException("Product not found"));
+                .orElseThrow(()-> new CustomRuntimeException("Product not found"));
 
         if(product != null){
             product.setDeletedDate(LocalDateTime.now());

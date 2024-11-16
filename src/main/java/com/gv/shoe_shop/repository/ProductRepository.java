@@ -14,3 +14,4 @@ public interface ProductRepository extends MongoRepository<Product, String> {
     List<Product> findByDeletedDateIsNull(Sort sort);
     List<Product> findByProductCategoryId(String id);
 }
+

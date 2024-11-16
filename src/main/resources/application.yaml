@@ -11,4 +11,4 @@ spring:
     name: shoe-shop
   data:
     mongodb:
-      uri: mongodb://localhost:27017/shoe-shop
+      uri: mongodb://root:190103@localhost:27017/shoe-shop?authSource=admin

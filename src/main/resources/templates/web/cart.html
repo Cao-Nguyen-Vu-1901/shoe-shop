@@ -11,21 +11,22 @@
     <div class="container">
         <div class="cart_inner mt-5">
             <div class="table-responsive">
-                <table class="table">
+                <table class="table" th:if="${cart!=null}">
                     <thead>
                     <tr>
                         <th scope="col">Tên sản phẩm</th>
                         <th scope="col">Giá</th>
                         <th scope="col">Số lượng</th>
                         <th scope="col">Tổng tiền</th>
+                        <th scope="col">&nbsp;</th>
                     </tr>
                     </thead>
                     <tbody>
-                    <tr th:each=" item : ${cart.cartItems}" th:if="${cart}">
+                    <tr th:each=" item : ${cart.cartItems}">
                         <td>
                             <div class="media">
                                 <div class="d-flex">
-                                    <img th:src="@{'/assets/web/img/product/' + ${item.product.image}}" alt="">
+                                    <img width="90vh" th:src="@{'/assets/web/img/product/' + ${item.product.image}}" alt="">
                                 </div>
                                 <div class="media-body">
                                     <p th:text="${item.product.name}"></p>
@@ -37,7 +38,7 @@
                         </td>
                         <td>
                             <div class="product_count">
-                                <form th:action="@{/web/update-cart}" method="post">
+                                <form th:action="@{/web/cart/update}" method="post">
                                     <input type="hidden" th:value="${cart.id}" name="id"
                                            class="input-text qty">
                                     <input type="hidden" th:value="${item.product.id}" name="productId"
@@ -48,13 +49,13 @@
                                         <i class="lnr lnr-chevron-up"></i>
                                     </button>
                                 </form>
-                                <form th:action="@{/web/update-cart}" method="post" onsubmit="return handleFormSubmit(event)">
+                                <form th:action="@{/web/cart/update}" method="post" onsubmit="return handleFormSubmit(event)">
                                     <input type="hidden" th:value="${cart.id}" name="id"
                                            class="input-text qty">
                                     <input type="hidden" th:value="${item.product.id}" name="productId"
                                            class="input-text qty">
                                     <input type="text" th:id="${'sst-' + item.product.id}"
-                                           name="quantity" th:value="${item.quantity}" id="inputField"
+                                           name="quantity" min="1" th:value="${item.quantity}" id="inputField"
                                            class="input-text qty">
                                     <button style="display: none" type="submit">Submit</button>
                                 </form>
@@ -68,7 +69,7 @@
                                         return true;  // Nếu không thì submit bình thường
                                     }
                                 </script>
-                                <form th:action="@{/web/update-cart}" method="post">
+                                <form th:action="@{/web/cart/update}" method="post">
                                     <input type="hidden" th:value="${cart.id}" name="id"
                                            class="input-text qty">
                                     <input type="hidden" th:value="${item.product.id}" name="productId"
@@ -83,6 +84,13 @@
                         </td>
                         <td>
                             <h5 th:text="${item.price * item.quantity + 'đ'}"></h5>
+                        </td>
+                        <td>
+                            <form th:action="@{/web/cart/remove}" method="post">
+                                <input type="hidden" name="productId" th:value="${item.product.id}" />
+                                <button class="primary-btn" type="submit">Xóa</button>
+                            </form>
+
                         </td>
                     </tr>
                     <tr>
@@ -119,6 +127,9 @@
                     </tr>
                     </tbody>
                 </table>
+                <p th:if="${cart == null}" class="text-center">
+                    Vui lòng thêm sản phẩm để tiếp tục!
+                </p>
             </div>
         </div>
     </div>

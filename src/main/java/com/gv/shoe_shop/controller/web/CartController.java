@@ -10,19 +10,17 @@ import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
-@RequestMapping("/web")
+@RequestMapping("/web/cart")
 @RequiredArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class CartController {
     CartService cartService;
 
-    @GetMapping("/cart")
+    @GetMapping
     public String showCart(HttpSession session, Model model) {
         var user = (UserResponse) session.getAttribute(StringConstant.USER);
         var cart = cartService.getCartByUser(user);
@@ -30,7 +28,7 @@ public class CartController {
         return "web/cart";
     }
 
-    @PostMapping("/cart")
+    @PostMapping
     public String addCart(CartRequest cartRequest, HttpSession session, RedirectAttributes attributes){
         var user = (UserResponse) session.getAttribute(StringConstant.USER);
         var cart = cartService.saveCart(cartRequest, user);
@@ -38,10 +36,17 @@ public class CartController {
         return "redirect:/web/cart";
     }
 
-    @PostMapping("/update-cart")
+    @PostMapping("/update")
     public String updateCart(String id, String productId, int quantity, RedirectAttributes attributes){
         var cart = cartService.updateCart(id, productId, quantity);
         attributes.addFlashAttribute("cart", cart);
+        return "redirect:/web/cart";
+    }
+
+    @PostMapping("/remove")
+    public String removeCart(String productId, HttpSession session){
+        var user = (UserResponse) session.getAttribute(StringConstant.USER);
+        cartService.removeCart(productId, user);
         return "redirect:/web/cart";
     }
 }

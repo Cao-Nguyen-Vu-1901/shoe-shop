@@ -3999,9 +3999,9 @@ label {
     .product_count button:hover {
       color: #222222; }
   .product_count .increase {
-    top: -4px; }
+    top: -10px; }
   .product_count .reduced {
-    bottom: -8px; }
+    bottom: 57px; }
 
 .product_description_area {
   padding-bottom: 120px;

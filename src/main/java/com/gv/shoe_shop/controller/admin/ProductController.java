@@ -1,8 +1,13 @@
 package com.gv.shoe_shop.controller.admin;
 
 import java.io.IOException;
+import java.security.Principal;
 import java.util.List;
 
+import com.gv.shoe_shop.constants.StringConstant;
+import com.gv.shoe_shop.dto.response.UserResponse;
+import com.gv.shoe_shop.service.UserService;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -24,6 +29,9 @@ import com.gv.shoe_shop.service.ProductService;
 public class ProductController {
     @Autowired
     private ProductService productService;
+
+    @Autowired
+    private UserService userService;
 
     @Autowired
     private CategoryService categoryService;
@@ -92,5 +100,13 @@ public class ProductController {
         }
         return "redirect:/products";
     }
-    
+    @ModelAttribute
+    public void commonUser(Principal p, HttpSession session) {
+        if (p != null) {
+            String username = p.getName();
+            UserResponse user = userService.findByUsername(username);
+            if (user != null)
+                session.setAttribute(StringConstant.USER, user);
+        }
+    }
 }

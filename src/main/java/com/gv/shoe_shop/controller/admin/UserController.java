@@ -68,7 +68,7 @@ public class UserController {
 
     @GetMapping("/search-user")
     public String showSearchUser(Model model, String query) {
-        model.addAttribute("user",
+        model.addAttribute("users",
                 userService.search(query, new HashSet<>(List.of("ROLE_" + StringConstant.USER))));
         model.addAttribute("view", "users");
         model.addAttribute("childView", "management-user");

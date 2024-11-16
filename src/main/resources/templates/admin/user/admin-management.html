@@ -42,7 +42,7 @@
                                 <div class="col-auto">
                                     <a
                                             class="btn app-btn-secondary"
-                                            th:href="@{/admin/users/create}"
+                                            th:href="@{/admin/users/create-admin}"
                                     >
                                         Thêm quản trị viên
                                     </a>
@@ -93,7 +93,7 @@
                                                 Ngày cập nhật
                                             </th>
                                             <th style="text-align: center; width: 100px">
-                                                Ngày xoá
+                                                Ngày khoá (gần nhất)
                                             </th>
                                         </tr>
                                         </thead>
@@ -112,7 +112,7 @@
                                             <td style="text-align: center">
                                                 <form th:action="@{/admin/users/update-status}" method="post">
                                                     <input type="hidden" th:value="${item.id}" name="id">
-                                                    <input type="submit" class="btn btn-primary" value="Xoá"/>
+                                                    <input type="submit" class="btn btn-primary" value="Khoá"/>
                                                 </form>
                                             </td>
                                         </tr>
