@@ -16,7 +16,7 @@ import com.gv.shoe_shop.service.CategoryService;
 
 
 @Controller
-@RequestMapping("/categories")
+@RequestMapping("admin/categories")
 public class CategoryController {
     @Autowired
     private CategoryService categoryService;
@@ -24,13 +24,17 @@ public class CategoryController {
     @GetMapping
     public String viewCategories(Model model){
         model.addAttribute("categories", categoryService.getAllCategories());
-        return "web/admin/category/index";
+        model.addAttribute("view", "category");
+        model.addAttribute("childView", "allCategory");
+        return "admin/category/index";
     }
 
     @GetMapping("/create")
     public String showCreateCategory(Model model){
         model.addAttribute("category", new Category());
-        return "web/admin/category/create";   
+        model.addAttribute("view", "category");
+        model.addAttribute("childView", "createCategory");
+        return "admin/category/create";   
     }   
 
     @PostMapping("/create")
@@ -44,7 +48,7 @@ public class CategoryController {
         Category category = categoryService.getCategoryById(id);
         if(category != null){
             model.addAttribute("category", category);   
-            return "web/admin/category/edit";
+            return "admin/category/edit";
         }else{
             return "redirect:/categories";
         }
