@@ -71,11 +71,14 @@ public class CartService {
             cartItem.setQuantity(cartItem.getQuantity() + 1);
         } else if(quantity == -1){
             cartItem.setQuantity(cartItem.getQuantity() - 1);
-            if(cartItem.getQuantity() == 0){
+            if(cartItem.getQuantity() < 1){
                 cart.getCartItems().remove(cartItem);
-            }
+            }  
         } else {
             cartItem.setQuantity(quantity);
+            if(cartItem.getQuantity() < 1){
+                cart.getCartItems().remove(cartItem);
+            }
         }
         return cartMapper.toCartResponse(cartRepository.save(cart));
     }
