@@ -2,13 +2,10 @@ server:
   port: 8080
   servlet:
     context-path: /shoe-shop
-    multipart:
-      max-file-size: 5MB # Giới hạn kích thước file (có thể thay đổi)
-      max-request-size: 5MB # Giới hạn kích thước tổng request
 
 spring:
   application:
     name: shoe-shop
   data:
     mongodb:
-      uri: mongodb://root:190103@localhost:27017/shoe-shop?authSource=admin
+      uri: mongodb://localhost:27017/shoe-shop

@@ -40,7 +40,7 @@ public class CategoryController {
     @PostMapping("/create")
     public String createCategory(@ModelAttribute CategoryRequest categoryRequest){
         categoryService.createCategory(categoryRequest);
-        return "redirect:/categories";
+        return "redirect:/admin/categories";
     }
 
     @GetMapping("/edit/{id}")
@@ -50,21 +50,21 @@ public class CategoryController {
             model.addAttribute("category", category);   
             return "admin/category/edit";
         }else{
-            return "redirect:/categories";
+            return "redirect:/admin/categories";
         }
     }
 
     @PostMapping("/update/{id}")
     public String updateCategory(@PathVariable("id") String id, @ModelAttribute CategoryRequest categoryRequest){
         categoryService.updateCategory(id, categoryRequest);
-        return "redirect:/categories";
+        return "redirect:/admin/categories";
 
     }
 
     @GetMapping("/delete/{id}")
     public String deleteCategory(@PathVariable("id") String id){
         categoryService.softDeleteCategory(id);
-        return "redirect:/categories";
+        return "redirect:/admin/categories";
     }
 
 }

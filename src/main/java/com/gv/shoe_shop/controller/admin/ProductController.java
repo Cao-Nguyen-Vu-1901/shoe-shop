@@ -60,13 +60,13 @@ public class ProductController {
 
     @PostMapping("/create")
     public String createProduct(@ModelAttribute ProductRequest productRequest){
+        System.out.println(productRequest);
         try {
             productService.createProduct(productRequest);
         } catch (IOException e) {
             e.printStackTrace();
-            return "error";  // Có thể chuyển hướng tới trang lỗi nếu cần
         }
-        return "redirect:/products";
+        return "redirect:/admin/products";
 
     }
 
@@ -87,7 +87,7 @@ public class ProductController {
             model.addAttribute("categories", categoryService.getAllCategories());
             return "admin/product/edit";
         }else{
-            return "redirect:/products";
+            return "redirect:/admin/products";
         }
     }
 
@@ -98,7 +98,7 @@ public class ProductController {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return "redirect:/products";
+        return "redirect:/admin/products";
     }
     @ModelAttribute
     public void commonUser(Principal p, HttpSession session) {
@@ -109,4 +109,10 @@ public class ProductController {
                 session.setAttribute(StringConstant.USER, user);
         }
     }
+
+    @GetMapping("/delete/{id}")
+     public String softDeleteDevice(@PathVariable String id) {      
+         productService.softDelete(id);
+         return "redirect:/admin/products";
+     }
 }

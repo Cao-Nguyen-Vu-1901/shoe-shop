@@ -30,7 +30,7 @@ public class ProductService {
     @Autowired
     private CategoryRepository categoryRepository;
 
-    private static final String IMAGE_UPLOAD_DIR = "src/main/resources/static/web/img/product";
+    private static final String IMAGE_UPLOAD_DIR = "src/main/resources/static/assets/web/img/product";
 
     public List<Product> getAllProducts() {
         return productRepository.findByDeletedDateIsNull();
@@ -60,7 +60,7 @@ public class ProductService {
                 String imageName = imageFile.getOriginalFilename();
                 Path imagePath = Paths.get(IMAGE_UPLOAD_DIR, imageName);
                 Files.write(imagePath, imageFile.getBytes());
-                product.setImage(imageName);  // Lưu tên file ảnh vào cơ sở dữ liệu
+                product.setImage(imageName); 
             }
             return productRepository.save(product);
         } catch (Exception e) {
